@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <record id="view_custom_purchase_form" model="ir.ui.view">
+            <field name="name">custom.purchase.form</field>
+            <field name="model">custom.purchase</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <form string="Custom purchase order">
+                <sheet>
+                    <group>
+                        <field name="option"/>
+                        <field name="supplier" select="1" attrs="{'invisible':[('option','=','existing')]}"/>
+                        <field name="po_id" attrs="{'invisible':[('option','=','new')],'required':[('option','=','existing')]}" domain="[('state', '=', 'draft')]"/>
+                    </group>
+                    <footer>
+                        <button string="Create purchase order" icon="gtk-ok"  type="object" name="purchase_create"/>
+                    </footer>
+                </sheet>
+            </form>
+            </field>
+        </record>
+
+        <act_window name="Create Purchase Order"
+            res_model="custom.purchase"
+            key2="client_action_multi"
+            src_model="product.product"
+            view_mode="form" target="new"
+            view_type="form"
+            id="act_custom_purchase_menu" />
+    </data>
+</openerp>
